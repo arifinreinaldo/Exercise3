@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <h1>Table Planet</h1>
+    <table id="tablePlanet">
+        <thead>
+            <tr>
+                <td>Nama</td>
+                <td>Diameter</td>
+                <td>Climate</td>
+                <td>Gravity</td>
+                <td>Population</td>
+            </tr>
+        </thead>
+        <tbody id="bodyTable">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="prevButt" onclick="prevClick()">Previous</button>
+    <span id="count">0</span>
+    <button id="nextButt" onclick="nextClick()">Next</button>
+    Nama : <input type="text" name="" id="filterNama">
+</body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        var results,next,prev,url;
+        function defaultState(){
+            setDefaultDisplay();
+            fetchData();
+        }
+        function setDefaultDisplay(){
+            setVisibility('prevButt', 'hidden');
+            setVisibility('nextButt', 'hidden');
+        }
+        function setVisibility(id,value){
+            document.getElementById(id).style.visibility = value;
+        }
+        function fetchData(url = "https://swapi.co/api/planets/"){
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    refreshLocal(data);
+                })
+                .catch(error => console.error(error))
+        }
+        defaultState();
+        function refreshLocal(data){
+            setDefaultDisplay();
+            results = {};
+            next = "";
+            prev = "";
+            count = 0;
+            results = data.results;
+            next = data.next;
+            prev = data.previous;
+            count = data.count;
+            if(next == null){
+                setVisibility('nextButt','hidden');
+            }else{
+                setVisibility('nextButt', 'visible');
+            }
+            if(prev == null) {
+                setVisibility('prevButt', 'hidden');
+            } else {
+                setVisibility('prevButt', 'visible');
+            }
+            document.getElementById('count').innerHTML = count;
+            document.getElementById('bodyTable').innerHTML = "";
+            var body = "";
+            results.forEach(element => {
+                body += "<tr>";
+
+                body += "<td>";
+                body += element.name;
+                body += "</td>";
+
+                body += "<td>";
+                body += element.diameter;
+                body += "</td>";
+                
+                body += "<td>";
+                body += element.climate;
+                body += "</td>";
+                
+                body += "<td>";
+                body += element.gravity;
+                body += "</td>";
+                
+                body += "<td>";
+                body += element.population;
+                body += "</td>";
+                
+                body += "</tr>";    
+            });
+            document.getElementById('bodyTable').innerHTML = body;
+        }
+        function prevClick() {
+            fetchData(prev);
+        }
+        function nextClick() {
+            fetchData(next);
+        }
+        document.getElementById("filterNama").addEventListener("keyup", filterData);
+        function filterData(){
+            var nama = document.getElementById('filterNama').value;
+            document.getElementById('bodyTable').innerHTML = "";
+            var body = "";
+            results.forEach(element => {
+                if(element.name.toLowerCase().indexOf(nama)>-1){
+                    body += "<tr>";
+
+                    body += "<td>";
+                    body += element.name;
+                    body += "</td>";
+
+                    body += "<td>";
+                    body += element.diameter;
+                    body += "</td>";
+
+                    body += "<td>";
+                    body += element.climate;
+                    body += "</td>";
+
+                    body += "<td>";
+                    body += element.gravity;
+                    body += "</td>";
+
+                    body += "<td>";
+                    body += element.population;
+                    body += "</td>";
+
+                    body += "</tr>";
+                }
+            });
+            document.getElementById('bodyTable').innerHTML = body;
+        }
+    </script>
+</head>
+
+</html>
