@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
 <body>
     <h1>Table Planet</h1>
     
@@ -8,11 +15,11 @@
     <table id="tablePlanet">
         <thead>
             <tr>
-                <td>Nama</td>
-                <td>Diameter</td>
-                <td>Climate</td>
-                <td>Gravity</td>
-                <td>Population</td>
+                <th>Nama</th>
+                <th>Diameter</th>
+                <th>Climate</th>
+                <th>Gravity</th>
+                <th>Population</th>
             </tr>
         </thead>
         <tbody id="bodyTable">
@@ -28,13 +35,6 @@
     <button id="prevButt" onclick="prevClick()">Previous</button>
     <span id="count">0</span>
     <button id="nextButt" onclick="nextClick()">Next</button>
-</body>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
     <script>
         var results,next,prev,url;
         function defaultState(){
@@ -148,6 +148,5 @@
             document.getElementById('bodyTable').innerHTML = body;
         }
     </script>
-</head>
-
+</body>
 </html>
