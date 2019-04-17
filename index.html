@@ -10,8 +10,9 @@
     </head>
 <body>
     <h1>Table Planet</h1>
-    
-    Nama : <input type="text" name="" id="filterNama">
+    Jumlah Planet : <span id="count">0</span>
+    <br>
+    Cari berdasarkan Nama : <input type="text" name="" id="filterNama">
     <table id="tablePlanet">
         <thead>
             <tr>
@@ -33,7 +34,6 @@
         </tbody>
     </table>
     <button id="prevButt" onclick="prevClick()">Previous</button>
-    <span id="count">0</span>
     <button id="nextButt" onclick="nextClick()">Next</button>
     <script>
         var results,next,prev,url;
